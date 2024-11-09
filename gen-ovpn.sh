@@ -14,8 +14,8 @@ fi
 
 # Генерация ключей и сертификатов клиента
 cd $EASYRSA_DIR
-./easyrsa gen-req "$CLIENT_NAME" nopass
-./easyrsa sign-req client "$CLIENT_NAME"
+./easyrsa --batch gen-req "$CLIENT_NAME" nopass
+./easyrsa --batch sign-req client "$CLIENT_NAME"
 
 # Создание конфигурационного файла клиента
 CLIENT_CONF="$PROFILE_DIR/$CLIENT_NAME.ovpn"
