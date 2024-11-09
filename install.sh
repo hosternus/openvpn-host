@@ -66,7 +66,7 @@ status /var/log/openvpn-status.log
 verb 3
 EOF
 
-#Включаем IP-forwarding
+# Включаем IP-forwarding
 echo "Включаем IP-forwarding..."
 echo "Редактируем sysctl.conf..."
 echo net.ipv4.ip_forward=1 >> /etc/sysctl.conf
