@@ -66,6 +66,11 @@ status /var/log/openvpn-status.log
 verb 3
 EOF
 
+#Включаем IP-forwarding
+echo "Включаем IP-forwarding..."
+sysctl -w net.ipv4.ip_forward=1
+sysctl -p
+
 # Включаем и запускаем OpenVPN
 echo "Запуск OpenVPN..."
 systemctl enable openvpn@server
