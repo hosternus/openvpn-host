@@ -68,7 +68,7 @@ EOF
 
 #Включаем IP-forwarding
 echo "Включаем IP-forwarding..."
-sysctl -w net.ipv4.ip_forward=1
+echo net.ipv4.ip_forward=1 >> /etc/sysctl.conf
 sysctl -p
 
 # Включаем и запускаем OpenVPN
