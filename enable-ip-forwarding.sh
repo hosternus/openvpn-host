@@ -2,18 +2,11 @@
 
 # Включение IP-forwarding
 echo "Включаем IP-forwarding..."
-echo 1 > /proc/sys/net/ipv4/ip_forward
-
-# Проверка и добавление строки для постоянного включения IP-forwarding
-echo "Добавляем IP-forwarding в sysctl.conf для постоянного включения..."
-if ! grep -q "net.ipv4.ip_forward=1" /etc/sysctl.conf; then
-    echo "net.ipv4.ip_forward=1" >> /etc/sysctl.conf
-else
-    echo "IP-forwarding уже включен в sysctl.conf"
-fi
+sysctl -w net.ipv4.ip_forward=1
 
 # Применение изменений sysctl
 sysctl -p
+
 
 # Определение сетевого интерфейса, через который сервер подключен к Интернету
 INTERFACE=$(ip route | grep default | awk '{print $5}')
