@@ -1,9 +1,11 @@
 #!/bin/bash
 
+
 # Локация логов OpenVPN
 LOG_DIR="/var/log"
 OPENVPN_LOG="$LOG_DIR/openvpn.log"
 OPENVPN_STATUS_LOG="$LOG_DIR/openvpn-status.log"
+
 
 # Функция для проверки статуса и перезапуска OpenVPN
 check_and_restart_openvpn() {
@@ -20,6 +22,7 @@ check_and_restart_openvpn() {
     fi
 }
 
+
 # Функция для обновления OpenVPN и системы
 update_system_and_openvpn() {
     echo "Обновление системы и OpenVPN..."
@@ -30,6 +33,7 @@ update_system_and_openvpn() {
     echo "Система и OpenVPN обновлены до последних версий."
 }
 
+
 # Функция для очистки логов OpenVPN
 clear_openvpn_logs() {
     echo "Очистка логов OpenVPN..."
@@ -38,6 +42,7 @@ clear_openvpn_logs() {
     echo "Логи OpenVPN очищены."
 }
 
+
 # Функция для очистки кэшей и временных файлов
 clear_cache_and_temp() {
     echo "Очистка кэшей и временных файлов..."
@@ -45,6 +50,7 @@ clear_cache_and_temp() {
     rm -rf /tmp/*
     echo "Кэши и временные файлы очищены."
 }
+
 
 # Функция для очистки системного мусора
 clear_system_junk() {
@@ -63,6 +69,7 @@ clear_system_junk() {
 
     echo "Системный мусор очищен."
 }
+
 
 # Основная логика скрипта
 echo "Запуск скрипта обслуживания OpenVPN..."
