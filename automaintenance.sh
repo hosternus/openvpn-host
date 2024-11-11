@@ -1,10 +1,11 @@
 #!/bin/bash
 
+
 # Запрос пути к каталогу исходников сервера
 read -p "Введите полный путь к каталогу с исходными файлами библиотеки (например, /path/to/openvpn-host): " MAINTENANCE_SCRIPT
 
 
-# Проверка, существует ли указанные файлы
+# Проверка, существует ли указанные файлы (maintenance.sh и enable-ip-forwarding.sh)
 if [ ! -f "$MAINTENANCE_SCRIPT/maintenance.sh" ]; then
     echo "Скрипт обслуживания openvpn не найден по указанному пути: $MAINTENANCE_SCRIPT/maintenance.sh."
     exit 1
@@ -15,10 +16,11 @@ if [ ! -f "$MAINTENANCE_SCRIPT/enable-ip-forwarding.sh" ]; then
 fi
 
 
-# Maintenance
 # Лог-файл для записи результатов работы скрипта обслуживания
 LOG_FILE="/var/log/openvpn_maintenance.log"
 
+
+# Maintenance
 # Проверка, добавлено ли уже задание для данного скрипта в cron
 if crontab -l 2>/dev/null | grep -Fq "$MAINTENANCE_SCRIPT/maintenance.sh"; then
     echo "Задание для обслуживания уже добавлено в cron."
