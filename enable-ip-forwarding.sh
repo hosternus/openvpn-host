@@ -17,13 +17,13 @@ echo "Устанавливаем iptables и iptables-persistent для сохр
 apt-get update -y
 apt-get install -y iptables-persistent iptables
 
-# Определение сетевого интерфейса, через который сервер подключен к Интернету
-INTERFACE=$(ip route | grep default | awk '{print $5}')
-echo "Используем интерфейс: $INTERFACE"
-
 # Сброс прошлой конфигурации iptables
 rm -rf /etc/iptables/rules.v4
 iptables -F
+
+# Определение сетевого интерфейса, через который сервер подключен к Интернету
+INTERFACE=$(ip route | grep default | awk '{print $5}')
+echo "Используем интерфейс: $INTERFACE"
 
 # Настройка NAT для выхода трафика в Интернет
 echo "Настраиваем NAT с использованием iptables..."
