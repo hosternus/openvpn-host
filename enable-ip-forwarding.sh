@@ -3,8 +3,12 @@
 
 # Включаем IP-forwarding
 echo "Включаем IP-forwarding..."
-echo "Редактируем sysctl.conf..."
-echo net.ipv4.ip_forward=1 >> /etc/sysctl.conf
+if (grep -q net.ipv4.ip_forward=0 /etc/sysctl.conf); then
+    echo "Редактируем sysctl.conf..."
+    echo net.ipv4.ip_forward=1 >> /etc/sysctl.conf
+else
+    echo "Конфигурация sysctl.conf уже настроена"
+fi
 sysctl -p
 
 
