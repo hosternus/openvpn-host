@@ -2,7 +2,12 @@
 
 
 # Запрос пути к каталогу исходников сервера
-read -p "Введите полный путь к каталогу с исходными файлами библиотеки (например, /path/to/openvpn-host): " MAINTENANCE_SCRIPT
+MAINTENANCE_SCRIPT=$1
+
+if [[ -z "$MAINTENANCE_SCRIPT" ]]; then
+    echo "Необходимо указать полный путь до каталога openvpn-host. Использование: ./automaintenance.sh <путь_до_каталога>"
+    exit 1
+fi
 
 
 # Проверка, существует ли указанные файлы (maintenance.sh и enable-ip-forwarding.sh)
