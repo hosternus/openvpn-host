@@ -8,6 +8,21 @@ PROFILE_DIR="/root/vpnprofiles"
 OPENVPN_CONF="/etc/openvpn/server.conf"
 EASYRSA_DIR="/etc/openvpn/easy-rsa"
 CERTS_DIR="/etc/openvpn/easy-rsa/pki"
+read -p "Введите полный путь до каталога openvpn-host (/root/openvpn-host): " INIT_DIR
+
+# Проверка, существует ли указанные файлы (maintenance.sh, enable-ip-forwarding.sh и automaintenance.sh)
+if [ ! -f "$INIT_DIR/maintenance.sh" ]; then
+    echo "Скрипт обслуживания openvpn не найден по указанному пути: $INIT_DIR/maintenance.sh."
+    exit 1
+fi
+if [ ! -f "$INIT_DIR/enable-ip-forwarding.sh" ]; then
+    echo "Скрипт обслуживания ip-forwarding не найден по указанному пути: $INIT_DIR/enable-ip-forwarding.sh."
+    exit 1
+fi
+if [ ! -f "$INIT_DIR/automaintenance.sh" ]; then
+    echo "Скрипт автообслуживания automaintenance не найден по указанному пути: $INIT_DIR/automaintenance.sh."
+    exit 1
+fi
 
 # Удаляем старые конфигурации и ключи
 echo "Удаление старых конфигураций и ключей OpenVPN..."
@@ -66,11 +81,16 @@ status /var/log/openvpn-status.log
 verb 3
 EOF
 
-# +++++++++++++++++++++++++
 
+# Выполнение скриптов обслуживания
+echo "Выполнение скриптов обслуживания..."
+source "$INIT_DIR/maintenance.sh"
+source "$INIT_DIR/enable-ip-forwarding.sh"
+echo "Выполнение скрипта обслуживания завершено."
+echo "Активация скрипта автообслуживания..."
+source "$INIT_DIR/automaintenance.sh $INIT_DIR"
+echo "Активация скрипта автообслуживания завершена."
 
-
-# +++++++++++++++++++++++++
 
 # Включаем и запускаем OpenVPN
 echo "Запуск OpenVPN..."
