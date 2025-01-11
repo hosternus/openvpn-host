@@ -4,6 +4,7 @@
 CERT_DIR="/etc/openvpn/easy-rsa/pki"
 ISSUED_DIR="$CERT_DIR/issued"
 PRIVATE_DIR="$CERT_DIR/private"
+REQUEST_DIR="$CERT_DIR/reqs"
 
 # Основные файлы, которые нельзя удалять
 PROTECTED_FILES=("server.crt" "server.key" "ca.crt" "ca.key" "dh.pem")
@@ -33,7 +34,7 @@ for client_name in "${client_configs[@]}"; do
     # Проверка, указан ли клиент в списке для сохранения
     if [[ ! " ${keep_configs[@]} " =~ " $client_name " ]]; then
         # Удаление сертификатов и ключей для неиспользуемых конфигураций
-        rm -f "$ISSUED_DIR/$client_name.crt" "$PRIVATE_DIR/$client_name.key"
+        rm -f "$ISSUED_DIR/$client_name.crt" "$PRIVATE_DIR/$client_name.key" "$REQUEST_DIR/$client_name.req"
         echo "Конфигурация $client_name удалена."
     else
         echo "Конфигурация $client_name сохранена."
